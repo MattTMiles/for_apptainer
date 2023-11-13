@@ -269,11 +269,7 @@ class HyperModel(object):
                 print('Adding Solar Wind deterministic prior draws...\n')
                 sampler.addProposalToCycle(jp.draw_from_nearth_prior, 10)
 
-        # Chromatic GP noise prior draw
-        if 'chrom_gp' in self.snames:
-            print('Adding Chromatic GP noise prior draws...\n')
-            sampler.addProposalToCycle(jp.draw_from_chrom_gp_prior, 10)
-        
+
         # Annual chromatic noise prior draw
         if "chrom1yr" in self.snames:
             print('Adding annual Chromatic noise prior draws...\n')
@@ -285,9 +281,18 @@ class HyperModel(object):
             sampler.addProposalToCycle(jp.draw_from_ephem_prior, 10)
 
         # GWB uniform distribution draw
-        if np.any([('gw' in par and 'log10_A' in par) for par in self.snames]):
-            print('Adding GWB uniform distribution draws...\n')
+        #if np.any([('gw' in par and 'log10_A' in par) for par in self.snames]):
+        #    print('Adding GWB uniform distribution draws...\n')
+        #    sampler.addProposalToCycle(jp.draw_from_gwb_log_uniform_distribution, 10)
+        if "gw_log10_A" in self.param_names:
+            print('Adding GW uniform distribution draws...\n')
+
             sampler.addProposalToCycle(jp.draw_from_gwb_log_uniform_distribution, 10)
+        if "gwb_log10_A" in self.param_names:
+            print('Adding GWB uniform distribution draws...\n')
+
+            sampler.addProposalToCycle(jp.draw_from_gwb_log_uniform_distribution, 10)
+
 
         # Dipole uniform distribution draw
         if 'dipole_log10_A' in self.snames:

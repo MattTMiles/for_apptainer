@@ -551,8 +551,13 @@ class JumpProposal(object):
         lqxy = 0
 
         # draw parameter from signal model
-        signal_name = [par for par in self.pnames
-                       if ('gw' in par and 'log10_A' in par)][0]
+        #signal_name = [par for par in self.snames
+        #               if ('gw' in par and 'log10_A' in par)][0]
+        if "gw_log10_A" in self.pnames:
+            signal_name = "gw_log10_A"
+        
+        if "gwb_log10_A" in self.pnames:
+            signal_name = "gwb_log10_A"
         idx = list(self.pnames).index(signal_name)
         param = self.params[idx]
 
@@ -563,6 +568,7 @@ class JumpProposal(object):
                 param.get_logpdf(q[self.pmap[str(param)]]))
 
         return q, float(lqxy)
+
 
     def draw_from_dipole_log_uniform_distribution(self, x, iter, beta):
 
