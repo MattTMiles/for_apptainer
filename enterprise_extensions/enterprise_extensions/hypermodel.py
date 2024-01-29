@@ -275,6 +275,11 @@ class HyperModel(object):
             print('Adding annual Chromatic noise prior draws...\n')
             sampler.addProposalToCycle(jp.draw_from_annual_chrom_prior, 10)
 
+        # Chromatic event noise prior draw
+        if "chrom_bump" in self.snames:
+            print('Adding Chromatic event noise prior draws...\n')
+            sampler.addProposalToCycle(jp.draw_from_chrom_event_prior, 10)
+
         # Ephemeris prior draw
         if 'd_jupiter_mass' in self.snames:
             print('Adding ephemeris model prior draws...\n')
