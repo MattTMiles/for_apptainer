@@ -88,6 +88,10 @@ class HyperModel(object):
 
         if self.log_weights is not None:
             active_lnlike += self.log_weights[nmodel]
+        print("this is x:")
+        print(x)
+        print("this is lnlikelihood")
+        print(active_lnlike)
 
         return active_lnlike
 
