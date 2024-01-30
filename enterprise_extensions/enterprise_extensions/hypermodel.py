@@ -6,6 +6,7 @@ import numpy as np
 import scipy.linalg as sl
 
 from enterprise import constants as const
+import sys
 sys.path.insert(0, '/fred/oz002/users/mmiles/apptainer_again/PTMCMCSampler/PTMCMCSampler/')
 from PTMCMCSampler import PTSampler as ptmcmc
 
