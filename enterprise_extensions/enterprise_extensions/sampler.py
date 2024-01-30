@@ -8,7 +8,8 @@ import platform
 import healpy as hp
 import numpy as np
 from PTMCMCSampler import __version__ as __vPTMCMC__
-from PTMCMCSampler.PTMCMCSampler import PTSampler as ptmcmc
+sys.path.insert(0, '/fred/oz002/users/mmiles/apptainer_again/PTMCMCSampler/PTMCMCSampler/')
+from PTMCMCSampler import PTSampler as ptmcmc
 
 from enterprise_extensions import __version__
 from enterprise_extensions.empirical_distr import (EmpiricalDistribution1D,

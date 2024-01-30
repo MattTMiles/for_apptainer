@@ -6,7 +6,8 @@ import numpy as np
 import scipy.linalg as sl
 
 from enterprise import constants as const
-from PTMCMCSampler.PTMCMCSampler import PTSampler as ptmcmc
+sys.path.insert(0, '/fred/oz002/users/mmiles/apptainer_again/PTMCMCSampler/PTMCMCSampler/')
+from PTMCMCSampler import PTSampler as ptmcmc
 
 from .sampler import JumpProposal, get_parameter_groups, save_runtime_info
 
