@@ -273,7 +273,7 @@ class JumpProposal(object):
             self.fe_freqs = npzfile['freqs']
             self.fe = npzfile['fe']
 
-    def draw_from_prior(self, x, iter, beta):
+    def draw_from_prior(self, x, iter, beta, param_ind=None):
         """Prior draw.
 
         The function signature is specific to PTMCMCSampler.
@@ -282,8 +282,11 @@ class JumpProposal(object):
         q = x.copy()
         lqxy = 0
 
-        # randomly choose parameter
-        param = np.random.choice(self.params)
+        if param_ind is None:
+            # randomly choose parameter
+            param = np.random.choice(self.params) 
+        else:
+            param = self.params[param_ind]
 
         # if vector parameter jump in random component
         if param.size:
@@ -300,15 +303,18 @@ class JumpProposal(object):
 
         return q, float(lqxy)
 
-    def draw_from_red_prior(self, x, iter, beta):
+    def draw_from_red_prior(self, x, iter, beta, param_ind=None):
 
         q = x.copy()
         lqxy = 0
 
         signal_name = 'red noise'
 
-        # draw parameter from signal model
-        param = np.random.choice(self.snames[signal_name])
+        if param_ind is None:
+            # randomly choose parameter
+            param = np.random.choice(self.params) 
+        else:
+            param = self.params[param_ind]
         if param.size:
             idx2 = np.random.randint(0, param.size)
             q[self.pmap[str(param)]][idx2] = param.sample()[idx2]
@@ -405,15 +411,18 @@ class JumpProposal(object):
 
         return q, float(lqxy)
 
-    def draw_from_dm_gp_prior(self, x, iter, beta):
-
+    def draw_from_dm_gp_prior(self, x, iter, beta, param_ind=None):
         q = x.copy()
         lqxy = 0
 
         signal_name = 'dm_gp'
 
         # draw parameter from signal model
-        param = np.random.choice(self.snames[signal_name])
+        if param_ind is None:
+            # randomly choose parameter
+            param = np.random.choice(self.params) 
+        else:
+            param = self.params[param_ind]
         if param.size:
             idx2 = np.random.randint(0, param.size)
             q[self.pmap[str(param)]][idx2] = param.sample()[idx2]
@@ -499,7 +508,7 @@ class JumpProposal(object):
 
         return q, float(lqxy)
 
-    def draw_from_chrom_gp_prior(self, x, iter, beta):
+    def draw_from_chrom_gp_prior(self, x, iter, beta, param_ind=None):
 
         q = x.copy()
         lqxy = 0
@@ -507,7 +516,11 @@ class JumpProposal(object):
         signal_name = 'chrom_gp'
 
         # draw parameter from signal model
-        param = np.random.choice(self.snames[signal_name])
+        if param_ind is None:
+            # randomly choose parameter
+            param = np.random.choice(self.params) 
+        else:
+            param = self.params[param_ind]
         if param.size:
             idx2 = np.random.randint(0, param.size)
             q[self.pmap[str(param)]][idx2] = param.sample()[idx2]
@@ -522,7 +535,7 @@ class JumpProposal(object):
 
         return q, float(lqxy)
 
-    def draw_from_annual_chrom_prior(self, x, iter, beta):
+    def draw_from_annual_chrom_prior(self, x, iter, beta, param_ind=None):
 
         q = x.copy()
         lqxy = 0
@@ -530,7 +543,11 @@ class JumpProposal(object):
         signal_name = 'chrom1yr'
 
         # draw parameter from signal model
-        param = np.random.choice(self.snames[signal_name])
+        if param_ind is None:
+            # randomly choose parameter
+            param = np.random.choice(self.params) 
+        else:
+            param = self.params[param_ind]
         if param.size:
             idx2 = np.random.randint(0, param.size)
             q[self.pmap[str(param)]][idx2] = param.sample()[idx2]
@@ -545,7 +562,7 @@ class JumpProposal(object):
 
         return q, float(lqxy)
     
-    def draw_from_chrom_event_prior(self, x, iter, beta):
+    def draw_from_chrom_event_prior(self, x, iter, beta, param_ind=None):
 
         q = x.copy()
         lqxy = 0
@@ -553,7 +570,11 @@ class JumpProposal(object):
         signal_name = 'chrom_bump'
 
         # draw parameter from signal model
-        param = np.random.choice(self.snames[signal_name])
+        if param_ind is None:
+            # randomly choose parameter
+            param = np.random.choice(self.params) 
+        else:
+            param = self.params[param_ind]
         if param.size:
             idx2 = np.random.randint(0, param.size)
             q[self.pmap[str(param)]][idx2] = param.sample()[idx2]
@@ -738,7 +759,7 @@ class JumpProposal(object):
 
         return q, 0
 
-    def draw_from_dm_sw_prior(self, x, iter, beta):
+    def draw_from_dm_sw_prior(self, x, iter, beta, param_ind=None):
 
         q = x.copy()
         lqxy = 0
@@ -746,7 +767,11 @@ class JumpProposal(object):
         signal_name = 'gp_sw'
 
         # draw parameter from signal model
-        param = np.random.choice(self.snames[signal_name])
+        if param_ind is None:
+            # randomly choose parameter
+            param = np.random.choice(self.params) 
+        else:
+            param = self.params[param_ind]
         if param.size:
             idx2 = np.random.randint(0, param.size)
             q[self.pmap[str(param)]][idx2] = param.sample()[idx2]
@@ -761,7 +786,7 @@ class JumpProposal(object):
 
         return q, float(lqxy)
 
-    def draw_from_nearth_prior(self, x, iter, beta):
+    def draw_from_nearth_prior(self, x, iter, beta, param_ind=None):
 
         q = x.copy()
         lqxy = 0
@@ -770,7 +795,12 @@ class JumpProposal(object):
         if self.snames["n_earth"] != []:
 
             # draw parameter from signal model
-            param = np.random.choice(self.snames[signal_name])
+            if param_ind is None:
+                # randomly choose parameter
+                param = np.random.choice(self.params) 
+            else:
+                param = self.params[param_ind]
+                
             if param.size:
                 idx2 = np.random.randint(0, param.size)
                 q[self.pmap[str(param)]][idx2] = param.sample()[idx2]

@@ -88,10 +88,7 @@ class HyperModel(object):
 
         if self.log_weights is not None:
             active_lnlike += self.log_weights[nmodel]
-        print("this is x:")
-        print(x)
-        print("this is lnlikelihood")
-        print(active_lnlike)
+            
 
         return active_lnlike
 
@@ -221,6 +218,7 @@ class HyperModel(object):
 
         # always add draw from prior
         sampler.addProposalToCycle(jp.draw_from_prior, 5)
+
 
         # try adding empirical proposals
         if empirical_distr is not None:
